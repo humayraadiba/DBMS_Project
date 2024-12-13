@@ -41,6 +41,13 @@
                             <label for="confirm-password">Confirm Password:</label>
                             <input type="password" id="confirm-password" name="confirm-password" required>
                         </div>
+                        <div class="form-group">
+                            <label for="role">Role:</label>
+                            <select id="role" name="role" required>
+                                <option value="General User">General User</option>
+                                <option value="Admin">Admin</option>
+                            </select>
+                        </div>
                         <div class="form-button">
                             <button type="submit">Sign Up</button>
                         </div> 
@@ -63,6 +70,7 @@
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
             const confirmPassword = document.getElementById('confirm-password').value;
+            const role = document.getElementById('role').value;
 
             if (password !== confirmPassword) {
                 alert('Passwords do not match!');
@@ -78,7 +86,8 @@
                     body: JSON.stringify({
                         name: username,
                         email: email,
-                        password: password
+                        password: password,
+                        role: role
                     })
                 });
 
