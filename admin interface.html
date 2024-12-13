@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Contact Management System</title>
+    <link rel="stylesheet" href="admin interface.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">Admin Dashboard - Contact Management System</div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about_us.html">About Us</a></li>
+                    <li><a href="help.html">Help</a></li>
+                    <li><a href="index.html">Logout</a></li>
+                </ul>
+            </nav>
+        </header>
+        
+        <main>
+            <section id="admin" class="section">
+                <h1>Welcome, Admin</h1>
+                <div class="search-bar">
+                    <input type="text" id="searchInput" placeholder="Search Users by Name...">
+                    <button id="searchBtn">Search</button>
+                    <button id="resetBtn">Reset</button>
+                </div>
+
+                <table id="userTable">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Sign-In Time</th>
+                            <th>Last Login</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- User rows will go here -->
+                    </tbody>
+                </table>
+            </section>
+        </main>
+
+        <footer>
+            <p>&copy; 2024 Contact Management System. All Rights Reserved.</p>
+        </footer>
+    </div>
+
+    <script>
+        const API_URL = "http://localhost:5000/api"; // Update to your backend URL
+
+        async function fetchUsers() {
+            try {
+                const response = await fetch(`${API_URL}/getUsers`);
+                const users = await response.json();
+
+                const tableBody = document.querySelector("#userTable tbody");
+                tableBody.innerHTML = ""; // Clear the table
+
+                users.forEach(user => {
+                    const row = document.createElement("tr");
+
+                    row.innerHTML = `
+                        <td>${user.id}</td>
+                        <td>${user.name}</td>
+                        <td>${user.email}</td>
+                        <td>${user.sign_in_time}</td>
+                        <td>${user.last_login}</td>
+                        <td>
+                            <button class="delete-btn" onclick="deleteUser(${user.id})">Delete</button>
+                        </td>
+                    `;
+                    tableBody.appendChild(row);
+                });
+            } catch (err) {
+                console.error("Error fetching users:", err);
+            }
+        }
+
+        async function deleteUser(userId) {
+            try {
+                const response = await fetch(`${API_URL}/deleteUser/${userId}`, {
+                    method: "DELETE"
+                });
+
+                if (response.ok) {
+                    alert("User deleted successfully!");
+                    fetchUsers(); // Refresh the user list
+                } else {
+                    alert("Error deleting user.");
+                }
+            } catch (err) {
+                console.error("Error deleting user:", err);
+            }
+        }
+
+        async function searchUsersByName() {
+            const name = document.getElementById("searchInput").value;
+            try {
+                const response = await fetch(`${API_URL}/searchUsers?name=${name}`);
+                const users = await response.json();
+
+                const tableBody = document.querySelector("#userTable tbody");
+                tableBody.innerHTML = ""; // Clear the table
+
+                users.forEach(user => {
+                    const row = document.createElement("tr");
+
+                    row.innerHTML = `
+                        <td>${user.id}</td>
+                        <td>${user.name}</td>
+                        <td>${user.email}</td>
+                        <td>${user.sign_in_time}</td>
+                        <td>${user.last_login}</td>
+                        <td>
+                            <button class="delete-btn" onclick="deleteUser(${user.id})">Delete</button>
+                        </td>
+                    `;
+                    tableBody.appendChild(row);
+                });
+            } catch (err) {
+                console.error("Error searching users:", err);
+            }
+        }
+
+        document.getElementById("searchBtn").addEventListener("click", searchUsersByName);
+
+        document.getElementById("resetBtn").addEventListener("click", fetchUsers);
+
+        // Initial call to fetch users
+        fetchUsers();
+    </script>
+</body>
+</html>

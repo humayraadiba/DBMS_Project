@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link rel="stylesheet" href="login.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">CONTACT MANAGEMENT SYSTEM</div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="admin.html">Admin</a></li>
+                    <li><a href="about us.html">About Us</a></li>
+                    <li><a href="help.html">Help</a></li>
+                </ul>
+            </nav>
+        </header>
+        <main>
+            <div class="login-terminal">
+                <h2>Login</h2>
+                <form id="login-form">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" required>
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" required>
+                    <button type="submit">Login</button>
+                </form>
+                <p><a href="forgot password.html">Forgot Password?</a></p>
+                <p>Don't have an account? <a href="signup.html">Sign up here</a>.</p>
+            </div>
+        </main>
+        <footer>
+            <p>&copy; 2024 Contact Management System. All Rights Reserved.</p>
+        </footer>
+    </div>
+
+    <script>
+        document.getElementById('login-form').addEventListener('submit', async function(event) {
+            event.preventDefault(); // Prevent default form submission
+            
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            try {
+                const response = await fetch('http://localhost:5000/api/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ username, password })
+                });
+
+                if (response.ok) {
+                    const result = await response.json();
+                    //alert(result.message);
+                    // Redirect or perform other actions upon successful login
+                    //window.location.href = 'user interface.html';
+                    localStorage.setItem('token', result.token);
+                    localStorage.setItem('userId',result.userId)
+                    window.location.href = 'userInterface.html';
+
+                } else {
+                    const error = await response.json();
+                    alert('Invalid login credentials. ' + error.message);
+                }
+            } catch (err) {
+                alert('An error occurred! ' + err.message);
+            }
+        });
+    </script>
+</body>
+</html>

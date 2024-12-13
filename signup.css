@@ -1,0 +1,153 @@
+/* General reset */
+
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background: url('BackAdiba.png') no-repeat center center fixed;
+    background-size: cover;
+    color: #333;
+}
+
+/* Container */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 1);
+}
+
+/* Header */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 2px solid #007BFF;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #007BFF;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li {
+    margin: 0 15px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #007BFF;
+    font-weight: bold;
+}
+
+nav ul li a:hover {
+    color: #0056b3;
+}
+
+/* Main sections */
+main {
+    margin: 50px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: calc(100vh - 160px);
+}
+
+.section {
+   
+    padding: 20px 0;
+    text-align: center;
+}
+
+.section h2 {
+    color: #007BFF;
+}
+
+/* Sign-Up Form */
+.signup-form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 70vh;
+    background: #ffffffc5;
+    width: 300px;
+    height: 300px;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.224);
+    margin: 20px auto;
+    
+}
+
+.signup-form {
+    width: 100%;
+    max-width: 300px;
+}
+
+.signup-form .form-group {
+    margin-bottom: 15px;
+    text-align: left;
+    width: 80%;
+}
+
+.signup-form label {
+    display: block;
+    margin-bottom: 5px;
+    color: #007BFF;
+}
+
+.signup-form input {
+    background: rgba(255, 255, 255, 0.346);
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.signup-form button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.signup-form button:hover {
+    background-color: #0056b3;
+}
+
+.signup-form-container p {
+    margin-top: 20px;
+}
+
+.signup-form-container a {
+    color: #007BFF;
+    text-decoration: none;
+}
+
+.signup-form-container a:hover {
+    text-decoration: underline;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 10px 0;
+    margin-top: 20px;
+    border-top: 2px solid #007BFF;
+    color: #555;
+    font-size: 14px;
+}
